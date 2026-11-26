@@ -1,28 +1,43 @@
 name: Build profile
+
 on:
   workflow_dispatch:
   push:
-    paths: ['config/**', 'scripts/**', '.github/workflows/build.yml']
+    paths:
+      - "config/**"
+      - "scripts/**"
+      - ".github/workflows/build.yml"
   schedule:
-    - cron: '23 2 * * *'
+    - cron: "23 2 * * *"
+
 permissions:
   contents: write
+
 concurrency:
   group: profile-build
   cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: node scripts/generate.mjs
-      - run: node scripts/terrain.mjs
+          node-version: "22"
+
+      - name: Generate contribution radar
+        run: node scripts/radar.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
+
+      - name: Generate profile README
+        run: node scripts/generate.mjs
+
+      - name: Commit updated profile assets
+        run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add README.md assets

@@ -1,13 +1,119 @@
-import fs from 'node:fs';
-const read=n=>JSON.parse(fs.readFileSync(`config/${n}.json`));const p=read('profile'),tech=read('tech-stack'),projects=read('projects'),f=read('features'),theme=read('theme');const red=theme.accent;const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
-fs.mkdirSync('assets',{recursive:true});
-const svg=(name,h,body)=>fs.writeFileSync(`assets/${name}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="${h}" viewBox="0 0 900 ${h}"><defs><radialGradient id="bg"><stop stop-color="#390b19"/><stop offset="1" stop-color="#09090d"/></radialGradient></defs><rect width="900" height="${h}" rx="8" fill="#09090d"/><g font-family="monospace" fill="#eee">${body}</g></svg>`);
-const txt=(x,y,s,size=18,color='#eee',extra='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" ${extra}>${esc(s)}</text>`;const motion=(d)=>`<path d="${d}" fill="none" stroke="${red}" stroke-width="2" stroke-dasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-36" dur="1.4s" repeatCount="indefinite"/></path>`;
-svg('header',320,`<rect width="900" height="320" fill="url(#bg)" stroke="#602032"/>${txt(28,35,'GHOST_PROTOCOL // DEVELOPER_001',15,red)}${txt(28,130,p.name.split(' ')[0].toUpperCase(),76,'#eee','font-weight="bold"')}${txt(28,210,p.name.split(' ').slice(1).join(' ').toUpperCase(),76,'#eee','font-weight="bold"')}${txt(30,250,p.title.toUpperCase(),20,red)}${txt(30,299,'● SYSTEM ONLINE',14,red)}<g transform="translate(540 15)"><g fill="none" stroke="${red}"><circle cx="150" cy="140" r="120" stroke-dasharray="2 9"/><circle cx="150" cy="140" r="105" stroke-dasharray="55 20 10 35"><animateTransform attributeName="transform" type="rotate" from="0 150 140" to="360 150 140" dur="16s" repeatCount="indefinite"/></circle><circle cx="150" cy="140" r="91" stroke-dasharray="6 13"><animateTransform attributeName="transform" type="rotate" from="360 150 140" to="0 150 140" dur="12s" repeatCount="indefinite"/></circle>${f.holographicFace?'<path d="M150 55L198 85 212 145 178 195 122 195 88 145 102 85Z" fill="#190910"/><path d="M150 55V195M102 85L198 85 88 145 212 145 122 195 178 195 102 85M150 55L88 145 150 170 212 145Z"/><path d="M110 115L140 125 110 130ZM190 115L160 125 190 130Z" fill="#ff304f"/><path d="M125 155L150 166 175 155M132 180H168"/>':''}<path d="M30 140H270"><animateTransform attributeName="transform" type="translate" values="0 -65;0 65;0 -65" dur="4s" repeatCount="indefinite"/></path></g></g>`);
-const lines=['// Engineering beyond the interface','const developer = {',`  name: "${p.name}",`,`  focus: "${p.title}",`,'  exploring: [',...p.interests.map(s=>`    "${s}",`),'  ],','  learning: true','};'];svg('identity',340,`<rect width="900" height="42" fill="#1b1119"/>${txt(20,27,'● ● ●   developer.ts',16,red)}${lines.map((s,i)=>{let y=70+i*23;return txt(20,y,String(i+1).padStart(2,'0'),14,'#79606e')+`<svg x="65" y="${y-18}" width="820" height="23"><text x="0" y="18" font-size="18" xml:space="preserve" fill="${i===0?'#99838e':s.includes('"')?'#b0d99c':'#f17cab'}">${esc(s)}</text>${f.codeTyping?`<rect width="820" height="23" fill="#09090d"><animate attributeName="x" values="0;0;${s.length*11};${s.length*11};0" keyTimes="0;${i*.055};${i*.055+.05};.96;1" dur="18s" repeatCount="indefinite"/></rect>`:''}</svg>`}).join('')}${txt(20,325,'⑂ main / developer.ts                                      ● BUILDING',14,red)}`);
-svg('focus',130,['Backend Engineering','Agentic AI','Concurrency'].map((s,i)=>`<g transform="translate(${i*300+5} 5)"><rect width="290" height="120" rx="6" fill="#151019" stroke="#552334"/>${motion('M30 42H260')}${[30,145,260].map(x=>`<circle cx="${x}" cy="42" r="8" fill="#24101b" stroke="${red}"/>`).join('')}${txt(15,83,s,18)}${txt(15,105,['APIs & databases','Intelligent workflows','Parallel execution'][i],13,'#a88b98')}</g>`).join(''));
-let y=10;let cards='';for(const [category,items] of Object.entries(tech)){cards+=txt(15,y+22,category.toUpperCase(),17,red);y+=38;items.forEach((item,i)=>{let x=10+i%3*297,cy=y+Math.floor(i/3)*120;cards+=`<g transform="translate(${x} ${cy})"><rect width="285" height="108" rx="7" fill="#171019" stroke="#552334"/>${f.circuitBorders?`<rect x="1" y="1" width="283" height="106" rx="7" fill="none" stroke="${red}" stroke-width="2" stroke-dasharray="45 733"><animate attributeName="stroke-dashoffset" from="0" to="-778" dur="5s" begin="${i*.5}s" repeatCount="indefinite"/></rect>`:''}${f.techStackAnimation?`<rect width="285" height="108" rx="7" fill="${red}" opacity="0"><animate attributeName="opacity" values="0;.13;0;0" keyTimes="0;.1;.2;1" dur="7s" begin="${i*.55}s" repeatCount="indefinite"/></rect>`:''}${txt(142,45,item.mark,28,item.color,'text-anchor="middle" font-weight="bold"')}${txt(142,76,item.name,19,'#eee','text-anchor="middle"')}${txt(142,95,item.type,11,'#a88b98','text-anchor="middle"')}</g>`});y+=Math.ceil(items.length/3)*120+12;}svg('tech-stack',y,cards);
-svg('divider',8,`<path d="M0 4H900" stroke="#552334"/>${motion('M0 4H900')}`);svg('footer',75,txt(450,30,'BUILD. DEBUG. REPEAT.',20,red,'text-anchor="middle"')+txt(450,55,'END OF TRANSMISSION_',13,'#a96478','text-anchor="middle"'));
-const img=(n,alt)=>`![${alt}](assets/${n}.svg)`;let md=`${img('header',p.name+' — '+p.title)}\n\n## 01 / IDENTITY — Behind the code.\n\n${img('identity','Developer introduction')}\n\n${img('focus','Engineering interests')}\n\n${img('divider','')}\n\n## 02 / TECHNOLOGY — The engineering arsenal.\n\n${img('tech-stack','Technology stack')}\n\n${Object.entries(tech).map(([k,v])=>`**${k}:** ${v.map(t=>t.name).join(' · ')}`).join('\n\n')}\n\n${img('divider','')}\n\n## 03 / ANALYTICS — Digital footprint.\n\n[GitHub activity](https://github.com/${p.username})\n\n`;
-if(f.githubStats)md+=`![GitHub stats](https://github-readme-stats.vercel.app/api?username=${p.username}&show_icons=true&theme=radical&hide_border=true)\n\n`;
-md+='## 04 / CONTRIBUTIONS — Every commit counts.\n\n';if(f.contributionSnake)md+=`![Contribution snake](https://raw.githubusercontent.com/${p.username}/${p.username}/output/snake.svg)\n\n`;if(f.animated3DTerrain)md+='![Animated contribution terrain](assets/terrain.svg)\n\n';md+=`## 05 / CONNECTIONS — Let's build something.\n\n[GitHub](https://github.com/${p.username})\n\n${img('footer','Build. Debug. Repeat.')}\n`;fs.writeFileSync('README.md',md);
+import fs from "node:fs";
+const read = (n) => JSON.parse(fs.readFileSync(`config/${n}.json`));
+const p = read("profile"),
+  tech = read("tech-stack"),
+  projects = read("projects"),
+  f = read("features"),
+  theme = read("theme");
+const red = theme.accent;
+const esc = (s) =>
+  String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+fs.mkdirSync("assets", { recursive: true });
+const svg = (name, h, body) =>
+  fs.writeFileSync(
+    `assets/${name}.svg`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="${h}" viewBox="0 0 900 ${h}"><defs><radialGradient id="bg"><stop stop-color="#390b19"/><stop offset="1" stop-color="#09090d"/></radialGradient></defs><rect width="900" height="${h}" rx="8" fill="#09090d"/><g font-family="monospace" fill="#eee">${body}</g></svg>`,
+  );
+const txt = (x, y, s, size = 18, color = "#eee", extra = "") =>
+  `<text x="${x}" y="${y}" font-size="${size}" fill="${color}" ${extra}>${esc(s)}</text>`;
+const motion = (d) =>
+  `<path d="${d}" fill="none" stroke="${red}" stroke-width="2" stroke-dasharray="6 12"><animate attributeName="stroke-dashoffset" from="0" to="-36" dur="1.4s" repeatCount="indefinite"/></path>`;
+svg(
+  "header",
+  320,
+  `<rect width="900" height="320" fill="url(#bg)" stroke="#602032"/>${txt(28, 35, "GHOST_PROTOCOL // DEVELOPER_001", 15, red)}${txt(28, 130, p.name.split(" ")[0].toUpperCase(), 76, "#eee", 'font-weight="bold"')}${txt(28, 210, p.name.split(" ").slice(1).join(" ").toUpperCase(), 76, "#eee", 'font-weight="bold"')}${txt(30, 250, p.title.toUpperCase(), 20, red)}${txt(30, 299, "● SYSTEM ONLINE", 14, red)}<g transform="translate(540 15)"><g fill="none" stroke="${red}"><circle cx="150" cy="140" r="120" stroke-dasharray="2 9"/><circle cx="150" cy="140" r="105" stroke-dasharray="55 20 10 35"><animateTransform attributeName="transform" type="rotate" from="0 150 140" to="360 150 140" dur="16s" repeatCount="indefinite"/></circle><circle cx="150" cy="140" r="91" stroke-dasharray="6 13"><animateTransform attributeName="transform" type="rotate" from="360 150 140" to="0 150 140" dur="12s" repeatCount="indefinite"/></circle>${f.holographicFace ? '<path d="M150 55L198 85 212 145 178 195 122 195 88 145 102 85Z" fill="#190910"/><path d="M150 55V195M102 85L198 85 88 145 212 145 122 195 178 195 102 85M150 55L88 145 150 170 212 145Z"/><path d="M110 115L140 125 110 130ZM190 115L160 125 190 130Z" fill="#ff304f"/><path d="M125 155L150 166 175 155M132 180H168"/>' : ""}<path d="M30 140H270"><animateTransform attributeName="transform" type="translate" values="0 -65;0 65;0 -65" dur="4s" repeatCount="indefinite"/></path></g></g>`,
+);
+const lines = [
+  "// Engineering beyond the interface",
+  "const developer = {",
+  `  name: "${p.name}",`,
+  `  focus: "${p.title}",`,
+  "  exploring: [",
+  ...p.interests.map((s) => `    "${s}",`),
+  "  ],",
+  "  learning: true",
+  "};",
+];
+svg(
+  "identity",
+  340,
+  `<rect width="900" height="42" fill="#1b1119"/>${txt(20, 27, "● ● ●   developer.ts", 16, red)}${lines
+    .map((s, i) => {
+      let y = 70 + i * 23;
+      return (
+        txt(20, y, String(i + 1).padStart(2, "0"), 14, "#79606e") +
+        `<svg x="65" y="${y - 18}" width="820" height="23"><text x="0" y="18" font-size="18" xml:space="preserve" fill="${i === 0 ? "#99838e" : s.includes('"') ? "#b0d99c" : "#f17cab"}">${esc(s)}</text>${f.codeTyping ? `<rect width="820" height="23" fill="#09090d"><animate attributeName="x" values="0;0;${s.length * 11};${s.length * 11};0" keyTimes="0;${i * 0.055};${i * 0.055 + 0.05};.96;1" dur="18s" repeatCount="indefinite"/></rect>` : ""}</svg>`
+      );
+    })
+    .join(
+      "",
+    )}${txt(20, 325, "⑂ main / developer.ts                                      ● BUILDING", 14, red)}`,
+);
+svg(
+  "focus",
+  130,
+  ["Backend Engineering", "Agentic AI", "Concurrency"]
+    .map(
+      (s, i) =>
+        `<g transform="translate(${i * 300 + 5} 5)"><rect width="290" height="120" rx="6" fill="#151019" stroke="#552334"/>${motion("M30 42H260")}${[30, 145, 260].map((x) => `<circle cx="${x}" cy="42" r="8" fill="#24101b" stroke="${red}"/>`).join("")}${txt(15, 83, s, 18)}${txt(15, 105, ["APIs & databases", "Intelligent workflows", "Parallel execution"][i], 13, "#a88b98")}</g>`,
+    )
+    .join(""),
+);
+let y = 10;
+let cards = "";
+for (const [category, items] of Object.entries(tech)) {
+  cards += txt(15, y + 22, category.toUpperCase(), 17, red);
+  y += 38;
+  items.forEach((item, i) => {
+    let x = 10 + (i % 3) * 297,
+      cy = y + Math.floor(i / 3) * 120;
+    cards += `<g transform="translate(${x} ${cy})"><rect width="285" height="108" rx="7" fill="#171019" stroke="#552334"/>${f.circuitBorders ? `<rect x="1" y="1" width="283" height="106" rx="7" fill="none" stroke="${red}" stroke-width="2" stroke-dasharray="45 733"><animate attributeName="stroke-dashoffset" from="0" to="-778" dur="5s" begin="${i * 0.5}s" repeatCount="indefinite"/></rect>` : ""}${f.techStackAnimation ? `<rect width="285" height="108" rx="7" fill="${red}" opacity="0"><animate attributeName="opacity" values="0;.13;0;0" keyTimes="0;.1;.2;1" dur="7s" begin="${i * 0.55}s" repeatCount="indefinite"/></rect>` : ""}${txt(142, 45, item.mark, 28, item.color, 'text-anchor="middle" font-weight="bold"')}${txt(142, 76, item.name, 19, "#eee", 'text-anchor="middle"')}${txt(142, 95, item.type, 11, "#a88b98", 'text-anchor="middle"')}</g>`;
+  });
+  y += Math.ceil(items.length / 3) * 120 + 12;
+}
+svg("tech-stack", y, cards);
+projects.forEach((q, i) =>
+  svg(
+    `project-${i}`,
+    145,
+    `<rect width="900" height="145" fill="url(#bg)" stroke="#552334"/>${txt(22, 28, `FILE_00${i + 1} / ${q.status}`, 14, red)}${txt(22, 70, q.name, 26)}${txt(22, 105, q.description, 16, "#b4a3ae")}<g transform="translate(670 20)">${motion("M0 50H90L150 10M90 50L150 90")}${[
+      [0, 50],
+      [90, 50],
+      [150, 10],
+      [150, 90],
+    ]
+      .map(
+        ([x, y]) =>
+          `<circle cx="${x}" cy="${y}" r="12" fill="#210d17" stroke="${red}"/>`,
+      )
+      .join("")}</g>`,
+  ),
+);
+svg("divider", 8, `<path d="M0 4H900" stroke="#552334"/>${motion("M0 4H900")}`);
+svg(
+  "footer",
+  75,
+  txt(450, 30, "BUILD. DEBUG. REPEAT.", 20, red, 'text-anchor="middle"') +
+    txt(450, 55, "END OF TRANSMISSION_", 13, "#a96478", 'text-anchor="middle"'),
+);
+const img = (n, alt) => `![${alt}](assets/${n}.svg)`;
+let md = `${img("header", p.name + " — " + p.title)}\n\n## 01 / IDENTITY — Behind the code.\n\n${img("identity", "Developer introduction")}\n\n${img("focus", "Engineering interests")}\n\n${img("divider", "")}\n\n## 02 / TECHNOLOGY — The engineering arsenal.\n\n${img("tech-stack", "Technology stack")}\n\n${Object.entries(
+  tech,
+)
+  .map(([k, v]) => `**${k}:** ${v.map((t) => t.name).join(" · ")}`)
+  .join(
+    "\n\n",
+  )}\n\n${img("divider", "")}\n\n## 03 / PROJECTS — Engineering in action.\n\n${projects.map((q, i) => (q.url ? `[${img("project-" + i, q.name)}](${q.url})` : img("project-" + i, q.name))).join("\n\n")}\n\n## 04 / ANALYTICS — Digital footprint.\n\n[GitHub activity](https://github.com/${p.username})\n\n`;
+if (f.githubStats)
+  md += `![GitHub stats](https://github-readme-stats.vercel.app/api?username=${p.username}&show_icons=true&theme=radical&hide_border=true)\n\n`;
+md += "## 05 / CONTRIBUTIONS — Every commit counts.\n\n";
+if (f.contributionSnake)
+  md += `![Contribution snake](https://raw.githubusercontent.com/${p.username}/${p.username}/output/snake.svg)\n\n`;
+if (f.animated3DTerrain)
+  md += "![Animated contribution terrain](assets/terrain.svg)\n\n";
+md += `## 06 / CONNECTIONS — Let's build something.\n\n[GitHub](https://github.com/${p.username})\n\n${img("footer", "Build. Debug. Repeat.")}\n`;
+fs.writeFileSync("README.md", md);

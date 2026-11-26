@@ -1,1 +1,9 @@
-{"holographicFace":true,"codeTyping":true,"techStackAnimation":true,"circuitBorders":true,"contributionSnake":true,"animated3DTerrain":true,"githubStats":true}
+{
+  "holographicFace": true,
+  "codeTyping": true,
+  "techStackAnimation": true,
+  "circuitBorders": true,
+  "contributionSnake": false,
+  "animated3DTerrain": false,
+  "githubStats": true
+}
