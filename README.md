@@ -32,7 +32,7 @@
 
 ![Animated contribution terrain](assets/terrain.svg)
 
-## 06 / CONNECTIONS — Let's build something.
+## 05 / CONNECTIONS — Let's build something.
 
 [GitHub](https://github.com/RayanMirza)
 
