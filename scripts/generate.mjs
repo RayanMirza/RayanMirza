@@ -2,7 +2,6 @@ import fs from "node:fs";
 const read = (n) => JSON.parse(fs.readFileSync(`config/${n}.json`));
 const p = read("profile"),
   tech = read("tech-stack"),
-  projects = read("projects"),
   f = read("features"),
   theme = read("theme");
 const red = theme.accent;
@@ -76,23 +75,6 @@ for (const [category, items] of Object.entries(tech)) {
   y += Math.ceil(items.length / 3) * 120 + 12;
 }
 svg("tech-stack", y, cards);
-projects.forEach((q, i) =>
-  svg(
-    `project-${i}`,
-    145,
-    `<rect width="900" height="145" fill="url(#bg)" stroke="#552334"/>${txt(22, 28, `FILE_00${i + 1} / ${q.status}`, 14, red)}${txt(22, 70, q.name, 26)}${txt(22, 105, q.description, 16, "#b4a3ae")}<g transform="translate(670 20)">${motion("M0 50H90L150 10M90 50L150 90")}${[
-      [0, 50],
-      [90, 50],
-      [150, 10],
-      [150, 90],
-    ]
-      .map(
-        ([x, y]) =>
-          `<circle cx="${x}" cy="${y}" r="12" fill="#210d17" stroke="${red}"/>`,
-      )
-      .join("")}</g>`,
-  ),
-);
 svg("divider", 8, `<path d="M0 4H900" stroke="#552334"/>${motion("M0 4H900")}`);
 svg(
   "footer",
@@ -107,13 +89,8 @@ let md = `${img("header", p.name + " — " + p.title)}\n\n## 01 / IDENTITY — B
   .map(([k, v]) => `**${k}:** ${v.map((t) => t.name).join(" · ")}`)
   .join(
     "\n\n",
-  )}\n\n${img("divider", "")}\n\n## 03 / PROJECTS — Engineering in action.\n\n${projects.map((q, i) => (q.url ? `[${img("project-" + i, q.name)}](${q.url})` : img("project-" + i, q.name))).join("\n\n")}\n\n## 04 / ANALYTICS — Digital footprint.\n\n[GitHub activity](https://github.com/${p.username})\n\n`;
+  )}\n\n${img("divider", "")}\n\n## 03 / ANALYTICS — Digital footprint.\n\n[GitHub activity](https://github.com/${p.username})\n\n`;
 if (f.githubStats)
   md += `![GitHub stats](https://github-readme-stats.vercel.app/api?username=${p.username}&show_icons=true&theme=radical&hide_border=true)\n\n`;
-md += "## 05 / CONTRIBUTIONS — Every commit counts.\n\n";
-if (f.contributionSnake)
-  md += `![Contribution snake](https://raw.githubusercontent.com/${p.username}/${p.username}/output/snake.svg)\n\n`;
-if (f.animated3DTerrain)
-  md += "![Animated contribution terrain](assets/terrain.svg)\n\n";
-md += `## 06 / CONNECTIONS — Let's build something.\n\n[GitHub](https://github.com/${p.username})\n\n${img("footer", "Build. Debug. Repeat.")}\n`;
+md += `${img("divider", "")}\n\n## 04 / CONTRIBUTIONS — Every commit counts.\n\n${img("radar", "Animated contribution radar: commits, active days, peak daily activity and annual contribution heatmap")}\n\n## 05 / CONNECTIONS — Let's build something.\n\n[GitHub](https://github.com/${p.username})\n\n${img("footer", "Build. Debug. Repeat.")}\n`;
 fs.writeFileSync("README.md", md);

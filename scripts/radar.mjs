@@ -3,6 +3,9 @@ import fs from "node:fs";
 const profile = JSON.parse(fs.readFileSync("config/profile.json", "utf8"));
 
 const token = process.env.GITHUB_TOKEN;
+const now = new Date();
+const yearAgo = new Date(now);
+yearAgo.setUTCDate(yearAgo.getUTCDate() - 365);
 
 if (!token) {
   throw new Error("GITHUB_TOKEN is required");
@@ -17,9 +20,9 @@ const response = await fetch("https://api.github.com/graphql", {
   },
   body: JSON.stringify({
     query: `
-      query($username: String!) {
+      query($username: String!, $from: DateTime!, $to: DateTime!) {
         user(login: $username) {
-          contributionsCollection {
+          contributionsCollection(from: $from, to: $to) {
             totalCommitContributions
             contributionCalendar {
               totalContributions
@@ -36,6 +39,8 @@ const response = await fetch("https://api.github.com/graphql", {
     `,
     variables: {
       username: profile.username,
+      from: yearAgo.toISOString(),
+      to: now.toISOString(),
     },
   }),
 });
