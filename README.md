@@ -20,21 +20,13 @@
 
 ![](assets/divider.svg)
 
-## 03 / PROJECTS — Engineering in action.
-
-![Road Risk Mapping](assets/project-0.svg)
-
-![Booking Platform](assets/project-1.svg)
-
-![Agentic AI](assets/project-2.svg)
-
-## 04 / ANALYTICS — Digital footprint.
+## 03 / ANALYTICS — Digital footprint.
 
 [GitHub activity](https://github.com/RayanMirza)
 
 ![GitHub stats](https://github-readme-stats.vercel.app/api?username=RayanMirza&show_icons=true&theme=radical&hide_border=true)
 
-## 05 / CONTRIBUTIONS — Every commit counts.
+## 04 / CONTRIBUTIONS — Every commit counts.
 
 ![Contribution snake](https://raw.githubusercontent.com/RayanMirza/RayanMirza/output/snake.svg)
 
