@@ -66,18 +66,29 @@
     </g>
 
     
-    <circle cx="362.00324181020153" cy="300.75534633522363" r="3"
+    <circle cx="399.01690815677" cy="301.3131435964044" r="3"
       fill="#ff405f" opacity="0.25">
       <animate
         attributeName="opacity"
         values="0.25;1;0.25;0.25"
         keyTimes="0;0.04;0.35;1"
-        begin="5.9890710382513666s"
+        begin="5.967213114754099s"
         dur="8s"
         repeatCount="indefinite"/>
     </circle>
   
-    <circle cx="391.0543291531882" cy="297.4686192662263" r="4.23606797749979"
+    <circle cx="288.0537082626813" cy="295.828837987892" r="4.23606797749979"
+      fill="#ff405f" opacity="0.25">
+      <animate
+        attributeName="opacity"
+        values="0.25;1;0.25;0.25"
+        keyTimes="0;0.04;0.35;1"
+        begin="6.032786885245901s"
+        dur="8s"
+        repeatCount="indefinite"/>
+    </circle>
+  
+    <circle cx="391.0543291531882" cy="297.4686192662263" r="3"
       fill="#ff405f" opacity="0.25">
       <animate
         attributeName="opacity"
@@ -88,68 +99,57 @@
         repeatCount="indefinite"/>
     </circle>
   
-    <circle cx="354.17323842626746" cy="294.235299982565" r="3"
+    <circle cx="329.10537871569136" cy="257.9465751154132" r="3"
       fill="#ff405f" opacity="0.25">
       <animate
         attributeName="opacity"
         values="0.25;1;0.25;0.25"
         keyTimes="0;0.04;0.35;1"
-        begin="6.076502732240437s"
+        begin="6.426229508196721s"
         dur="8s"
         repeatCount="indefinite"/>
     </circle>
   
-    <circle cx="295.1128187717792" cy="243.12328164199099" r="3"
+    <circle cx="394.7657561173594" cy="230.21333721467278" r="3.414213562373095"
       fill="#ff405f" opacity="0.25">
       <animate
         attributeName="opacity"
         values="0.25;1;0.25;0.25"
         keyTimes="0;0.04;0.35;1"
-        begin="6.448087431693989s"
+        begin="7.147540983606557s"
         dur="8s"
         repeatCount="indefinite"/>
     </circle>
   
-    <circle cx="373.5107456219333" cy="199.87311068105925" r="3.414213562373095"
+    <circle cx="431.6581775782182" cy="148.10339849013138" r="3.414213562373095"
       fill="#ff405f" opacity="0.25">
       <animate
         attributeName="opacity"
         values="0.25;1;0.25;0.25"
         keyTimes="0;0.04;0.35;1"
-        begin="7.169398907103825s"
+        begin="7.8469945355191255s"
         dur="8s"
         repeatCount="indefinite"/>
     </circle>
   
-    <circle cx="444.85895014313195" cy="250.26500621927056" r="3.414213562373095"
+    <circle cx="441.4917724877353" cy="176.29223927093523" r="3"
       fill="#ff405f" opacity="0.25">
       <animate
         attributeName="opacity"
         values="0.25;1;0.25;0.25"
         keyTimes="0;0.04;0.35;1"
-        begin="7.868852459016393s"
+        begin="7.912568306010929s"
         dur="8s"
         repeatCount="indefinite"/>
     </circle>
   
-    <circle cx="441.71192048197423" cy="139.21347152854227" r="3"
+    <circle cx="441.71192048197423" cy="139.21347152854227" r="4.449489742783178"
       fill="#ff405f" opacity="0.25">
       <animate
         attributeName="opacity"
         values="0.25;1;0.25;0.25"
         keyTimes="0;0.04;0.35;1"
         begin="7.934426229508197s"
-        dur="8s"
-        repeatCount="indefinite"/>
-    </circle>
-  
-    <circle cx="448.0089991702319" cy="242.03418321376068" r="4.449489742783178"
-      fill="#ff405f" opacity="0.25">
-      <animate
-        attributeName="opacity"
-        values="0.25;1;0.25;0.25"
-        keyTimes="0;0.04;0.35;1"
-        begin="7.956284153005464s"
         dur="8s"
         repeatCount="indefinite"/>
     </circle>
@@ -188,16 +188,6 @@
       ANNUAL CONTRIBUTION MAP
     </text>
 
-    
-      <rect
-        x="53"
-        y="600"
-        width="11"
-        height="11"
-        rx="2"
-        fill="#21151d">
-        <title>2025-11-27: 0 contributions</title>
-      </rect>
     
       <rect
         x="53"
@@ -3849,6 +3839,16 @@
         <title>2026-11-27: 0 contributions</title>
       </rect>
     
+      <rect
+        x="833"
+        y="630"
+        width="11"
+        height="11"
+        rx="2"
+        fill="#21151d">
+        <title>2026-11-28: 0 contributions</title>
+      </rect>
+    
 
     <path d="M25 660H875" stroke="#602032"/>
 
@@ -3858,7 +3858,7 @@
 
     <text x="875" y="682" fill="#ff405f"
       font-size="12" text-anchor="end">
-      SCAN COMPLETE // 2026-11-27
+      SCAN COMPLETE // 2026-11-28
     </text>
 
   </g>
